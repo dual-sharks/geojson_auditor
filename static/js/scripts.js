@@ -4,15 +4,19 @@ document.addEventListener('DOMContentLoaded', function() {
     var submitButton = document.getElementById('submit-data');
     if (submitButton) {
         submitButton.addEventListener('click', function(event) {
-            var geojsonData = drawnItems.toGeoJSON();
-            console.log("GeoJSON being sent:", JSON.stringify(geojsonData));  // Debug output
+            if (!latestDrawnGeoJSON) {
+                console.error('No drawing data to submit.');
+                return; 
+            }
+
+            console.log("GeoJSON being sent:", JSON.stringify(latestDrawnGeoJSON)); 
 
             fetch('/submit_geojson', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(geojsonData)
+                body: JSON.stringify(latestDrawnGeoJSON)
             })
             .then(response => response.json())
             .then(data => console.log("Server response:", data))
@@ -23,10 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+var latestDrawnGeoJSON = null;  
+
 document.addEventListener('DOMContentLoaded', function() {
-     var map = L.map('map-container').setView([51.505, -0.09], 13);
+    var map = L.map('map-container').setView([51.505, -0.09], 13);
     
-     var drawnItems = new L.FeatureGroup();
+    var drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
     var drawControl = new L.Control.Draw({
         edit: { featureGroup: drawnItems },
@@ -43,9 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
     map.on(L.Draw.Event.CREATED, function (event) {
         var layer = event.layer;
         drawnItems.addLayer(layer);
-        sendDataToServer(layer.toGeoJSON());
+        latestDrawnGeoJSON = layer.toGeoJSON();  // Store the GeoJSON data instead of sending it
+        console.log("Drawn GeoJSON stored:", JSON.stringify(latestDrawnGeoJSON));
     });
 });
+
 
 function sendDataToServer(geoJsonData) {
     console.log(geoJsonData)
