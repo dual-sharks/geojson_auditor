@@ -18,7 +18,6 @@ def create_map(geojson_dict, df, nav_index):
         attr='Mapbox attribution',
         name='Mapbox Satellite'
     ).add_to(m)
-    Draw(export=True).add_to(m)
     geojson_layer = folium.GeoJson(geojson_dict, name='GeoJSON')
     geojson_layer.add_to(m)
     m.fit_bounds(geojson_layer.get_bounds())

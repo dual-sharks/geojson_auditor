@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     map.on(L.Draw.Event.CREATED, function (event) {
         var layer = event.layer;
         drawnItems.addLayer(layer);
-        latestDrawnGeoJSON = layer.toGeoJSON();  // Store the GeoJSON data instead of sending it
+        latestDrawnGeoJSON = layer.toGeoJSON(); 
         console.log("Drawn GeoJSON stored:", JSON.stringify(latestDrawnGeoJSON));
     });
 });

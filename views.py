@@ -11,7 +11,6 @@ def init_views(app):
 
     @app.route('/validate', methods=['POST'])
     def validate():
-        #print(request.form)  # See what data is being received
         validation_result = request.form.get('validation_result', 'default_value')
         update_validation_status(validation_result)
         return redirect(url_for('index'))
