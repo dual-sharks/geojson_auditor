@@ -1,0 +1,110 @@
+.valid-button {
+    font-size: 13px;
+    padding: 5px 10px;
+    border: 2px solid #4CAF50;
+    cursor: pointer;
+}
+
+.valid-button:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.invalid-button {
+    font-size: 13px;
+    padding: 5px 10px;
+    border: 2px solid #c40303;
+    cursor: pointer;
+}
+
+.invalid-button:hover {
+    background-color: #c50b0b;
+    color: white;
+}
+
+.bad-polygon-button {
+    font-size: 13px;
+    padding: 5px 10px;
+    border: 2px solid #ffa500;
+    cursor: pointer;
+}
+
+.bad-polygon-button:hover {
+    background-color: #ff8c00;
+    color: white;
+}
+
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #333; /* Dark gray */
+    color: #fff; /* White text color for contrast */
+}
+
+.leaflet-editable-marker {
+    width: 10px !important;
+    height: 10px !important;
+}
+
+h1 {
+  font-family: "Black Ops One", system-ui;
+  font-weight: 400;
+    text-align: center;
+  font-style: normal;
+}
+.card-header{
+    font-family: "Black Ops One", system-ui;
+    font-weight: 400;
+    text-align: center;
+    font-style: normal;
+}
+
+.card {
+    background-color: #474f55;
+    color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.card-title {
+    color: #cccccc;
+}
+
+.card-text {
+    color: inherit;
+}
+
+.button-container {
+
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+
+.button:hover {
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+    background-color: #0056b3;
+}
+
+
+.button:active {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px);
+}

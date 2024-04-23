@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Vue, Leaflet, Leaflet Draw, Vue2Leaflet, Leaflet Editable -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/vue2-leaflet@2.7.0/dist/vue2-leaflet.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.editable/1.2.0/Leaflet.Editable.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS and JS -->
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script src="../static/js/scripts.js"></script>
+
+    <title>GeoJSON Auditor 1.4.1.2</title>
+</head>
+<body class="bg-dark text-white">
+<h1>GeoJSON Auditor 1.4.1.2</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Validation</h3>
+                </div>
+                <div id="validation_buttons" style="height: 600px;">
+                    <ul>
+                        {% for key, value in info.items() %}
+                            <li>
+                                <strong>{{ key }}</strong>:
+                                <span>{{ value }}</span>
+                                <input type="text" name="{{ key }}" value="{{ value }}" style="display: none;">
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <form action="{{ url_for('edit_name') }}" method="post">
+                        <div class="form-group">
+                            <label for="new-name">Edit Name:</label>
+                            <input type="text" id="new-name" name="new_name" value="{{ info['Name'] }}"
+                                   class="form-control">
+                            <button type="submit" class="btn btn-info mt-2">Save Name</button>
+                        </div>
+                    </form>
+                <form action="{{ url_for('info_issue') }}" method="post">
+                    <button id="info-issue-button" type="submit">Info Issue</button>
+                </form>
+                <!-- Google Maps Link Button -->
+                <a href="https://www.google.com/maps/@{{ info['Centroid Latitude'] }},{{ info['Centroid Longitude'] }},350m/data=!3m1!1e3"
+                   target="_blank">
+                    <button>Open in Google Maps</button>
+                </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Geo Finder</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div id="map-container">
+                            {{ map|safe }}
+                        </div>
+                    </div>
+                    <form action="{{ url_for('validate') }}" method="post">
+                        <br>
+                        <div class="button-container">
+                        <button class="btn btn-danger" id="invalid-button" name="validation_result" value="invalid">
+                            Invalid
+                        </button>
+                        <button class="btn btn-warning" id="bad-polygon-button"
+                                formaction="{{ url_for('mark_bad_polygon') }}" type="submit">Bad Polygon
+                        </button>
+                        <button class="btn btn-success" id="valid-button" name="validation_result" value="valid">Valid
+                        </button>
+                        <button class="btn btn-secondary" formaction="{{ url_for('previous_geojson') }}" type="submit">
+                            Previous
+                        </button>
+                        <button class="btn btn-primary" formaction="{{ url_for('next_geojson') }}" type="submit">Next
+                        </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

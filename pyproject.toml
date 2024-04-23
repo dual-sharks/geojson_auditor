@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "geojson-auditor"
+version = "0.1.0"
+description = "Auditor for GeoJsons"
+authors = ["dualshark"]
+readme = "README.md"
+packages = [{include = "geojson_auditor"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^3.0.3"
+watchdog = "^4.0.0"
+jsonify = "^0.5"
+pandas = "^2.2.2"
+folium = "^0.16.0"
+leaflet = "^0.0.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
