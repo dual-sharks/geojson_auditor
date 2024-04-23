@@ -37,8 +37,6 @@ def load_geojson_details(app_state):
 
 #TODO: add comments
 def update_validation_status(validation_result):
-    global df
-    # Logic to update CSV with new status
     df.to_csv('data/geojsons.csv', index=False)
 
 def process_previous_next(direction):

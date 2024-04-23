@@ -3,7 +3,7 @@
 from flask import render_template, request, redirect, url_for
 from models import update_validation_status, process_previous_next, load_geojson_details, app_state
 
-#TODO: add comments to all of these
+
 def init_views(app):
     @app.route('/')
     def index():
@@ -34,19 +34,17 @@ def init_views(app):
     @app.route('/info_issue', methods=['POST'])
     def info_issue():
         print("Before update:", app_state.df.loc[app_state.nav_index])
-
         app_state.df.loc[app_state.nav_index, 'info_issue'] = 'issue'
 
         print("After update:", app_state.df.loc[app_state.nav_index])
-
         app_state.df.to_csv('geojsons.csv', index=False)
         return redirect(url_for('index'))
     
     @app.route('/mark_bad_polygon', methods=['POST'])
     def mark_bad_polygon():
-        
         print("Before update:", app_state.df.loc[app_state.nav_index])
         app_state.df.loc[app_state.nav_index, 'bad_polygon'] = 'bad'
+
         print("After update:", app_state.df.loc[app_state.nav_index])
         app_state.df.to_csv('geojsons.csv', index=False)
         return redirect(url_for('index'))
