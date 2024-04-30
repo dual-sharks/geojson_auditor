@@ -1,7 +1,7 @@
 # ROUTING AND VIEW LOGIC
 
 from flask import render_template, request, redirect, url_for, jsonify
-from models import update_validation_status, process_previous_next, load_geojson_details, app_state
+from models import update_validation_status,update_geojson, process_previous_next, load_geojson_details, app_state
 
 
 def init_views(app):
@@ -12,7 +12,7 @@ def init_views(app):
     @app.route('/validate', methods=['POST'])
     def validate():
         validation_result = request.form.get('validation_result', 'default_value')
-        update_validation_status(validation_result)
+        update_validation_status(validation_result, app_state.df)
         return redirect(url_for('index'))
 
 
@@ -26,12 +26,6 @@ def init_views(app):
         process_previous_next(direction='next')
         return redirect(url_for('index'))
     
-    @app.route('/update_geojson', methods=['POST'])
-    def update_geojson():
-        geojson_data = request.get_json()
-        print(geojson_data)
-        return jsonify(status="success", message="GeoJSON updated")
-    
     @app.route('/submit_geojson', methods=['POST'])
     def submit_geojson():
         data = request.get_json()
@@ -39,7 +33,10 @@ def init_views(app):
             return "Invalid JSON", 400
         if data and 'geometry' in data:
             coordinates = data['geometry']['coordinates']
+            update_geojson(coordinates)
             print("Received coordinates:", coordinates)
+
+            
         else:
             print("No valid geometry received")
         return jsonify({'status': 'success', 'message': 'Coordinates received and logged'})

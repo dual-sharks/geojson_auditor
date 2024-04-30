@@ -33,10 +33,16 @@ def load_geojson_details(app_state):
 
     return render_template('index.html', map=m._repr_html_(), info=info, message=None, unvalidated_count=unvalidated_count)
 
-
+def update_geojson(coordinates):
+    polygon = f'{{"type": "Polygon", "coordinates": {coordinates}}}'
+    app_state.df.loc[app_state.nav_index, 'polygon'] = polygon
+    process_previous_next(direction='next')
+    app_state.df.to_csv('data/geojsons.csv', index=False)
 
 #TODO: add comments
-def update_validation_status(validation_result):
+def update_validation_status(validation_result, df):
+    df.loc[app_state.nav_index, 'status'] = validation_result
+    process_previous_next(direction='next')
     df.to_csv('data/geojsons.csv', index=False)
 
 def process_previous_next(direction):

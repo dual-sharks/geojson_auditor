@@ -14,7 +14,7 @@ def create_map(geojson_dict, df, nav_index):
     m = folium.Map(location=[df.loc[nav_index, 'centroid_latitude'], df.loc[nav_index, 'centroid_longitude']], zoom_start=13)
     folium.TileLayer('OpenStreetMap').add_to(m)
     folium.TileLayer(
-        tiles='https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=YOUR_MAPBOX_ACCESS_TOKEN',
+        tiles='https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoiam9jb3B1ZmZzIiwiYSI6ImNsdjFncHdwdDA2eXcya25ub3dhOWw0aWEifQ.Ryosfu85kSVO8P408f1l-g',
         attr='Mapbox attribution',
         name='Mapbox Satellite'
     ).add_to(m)
